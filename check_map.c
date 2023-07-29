@@ -15,9 +15,7 @@
 void	free_map(t_cub3d *vals, char **map, char *msg)
 {
 	double_free(map);
-	double_free(vals->c_map);
-	printf("%s", msg);
-	free_exit(vals);
+	free_tex_image(msg, vals);
 }
 
 int	check_player(t_cub3d *vals, char **map, int i, int j)
@@ -73,8 +71,7 @@ void	check_map_chars(t_cub3d *vals)
 			if (!is_map_char(vals->c_map[i][j]))
 			{
 				double_free(vals->c_map);
-				printf("ERROR\nIncorrect character on the map!\n");
-				exit(EXIT_FAILURE);
+				free_tex_image2("ERROR\nIncorrect character on the map!\n", vals, EXIT_FAILURE);
 			}
 		}
 	}

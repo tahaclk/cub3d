@@ -15,11 +15,11 @@
 void	check_color_depth(t_cub3d *vals, t_color *color)
 {
 	if (color->r > 255 || color->r < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals);
+		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
 	if (color->g > 255 || color->g < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals);
+		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
 	if (color->b > 255 || color->b < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals);
+		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
 }
 
 int	is_all_digit(char **clr)
@@ -57,7 +57,7 @@ int	fill_color(t_cub3d *vals, t_color *color, char *str)
 	if (i == 3 && str[ft_strlen(str) - 1] != ',')
 	{
 		if (!is_all_digit(clr))
-			free_tex_paths("ERROR\nColor value is broke!\n", vals);
+			free_tex_paths("ERROR\nColor value is broke!\n", vals, EXIT_FAILURE);
 		color->r = ft_atoi(clr[0]);
 		color->g = ft_atoi(clr[1]);
 		color->b = ft_atoi(clr[2]);
@@ -67,7 +67,7 @@ int	fill_color(t_cub3d *vals, t_color *color, char *str)
 	else
 	{
 		double_free(clr);
-		free_tex_paths("ERROR\nColor type is wrong!\n", vals);
+		free_tex_paths("ERROR\nColor type is wrong!\n", vals, EXIT_FAILURE);
 	}
 	return (1);
 }
@@ -124,9 +124,15 @@ int	take_data(t_cub3d *vals, int i)
 		if (vals->c_map[i][0] == '\n')
 			;
 		else
-			free_tex_paths("ERROR\nValues is broke!\n", vals);
+		{
+			double_free(vals->c_map);
+			free_tex_paths("ERROR\nValues is broke!\n", vals, EXIT_FAILURE);
+		}
 	}
 	else
-		free_tex_paths("ERROR\nValues missing!\n", vals);
+	{
+		double_free(vals->c_map);
+		free_tex_paths("ERROR\nValues missing!\n", vals, EXIT_FAILURE);
+	}
 	return (0);
 }

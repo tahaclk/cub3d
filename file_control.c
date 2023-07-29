@@ -22,7 +22,7 @@ char	**read_file(t_cub3d *vals, int fd)
 	if (!str)
 	{
 		close(fd);
-		msg_fail_exit("File is empty or file cannot be opened\n", vals);
+		msg_fail_exit("File is empty or file cannot be opened\n", vals, EXIT_FAILURE);
 	}
 	while (1)
 	{
@@ -44,7 +44,7 @@ int	open_file(t_cub3d *vals, char **av)
 	char	*str;
 
 	len = ft_strlen(av[1]);
-	if (len > 3)
+	if (len > 4)
 	{
 		if (av[1][len - 1] == 'b' && av[1][len - 2] == 'u' &&
 			av[1][len - 3] == 'c' && av[1][len - 4] == '.')
@@ -54,13 +54,13 @@ int	open_file(t_cub3d *vals, char **av)
 			if (str)
 				free(str);
 			if (len == -1)
-				msg_fail_exit("File couldn't be opened\n", vals);
+				msg_fail_exit("File couldn't be opened\n", vals, EXIT_FAILURE);
 			return (len);
 		}
 		else
-			msg_fail_exit("Wrong map name\n", vals);
+			msg_fail_exit("Wrong map name\n", vals, EXIT_FAILURE);
 	}
 	else
-		msg_fail_exit("Wrong map name\n", vals);
+		msg_fail_exit("Wrong map name\n", vals, EXIT_FAILURE);
 	return (0);
 }

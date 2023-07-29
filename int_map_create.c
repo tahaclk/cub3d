@@ -79,13 +79,16 @@ void	allocate_int_map(t_cub3d *vals)
 		vals->map_height++;
 	vals->map = (int **) malloc(sizeof(int *) * vals->map_height);
 	if (!vals->map)
-		free_exit(vals);
+		free_tex_image2("ERROR\nAllocation error!\n", vals, EXIT_FAILURE);
 	i = -1;
 	while (++i < vals->map_height)
 	{
 		vals->map[i] = (int *) malloc(sizeof(int) * vals->map_width);
 		if (!vals->map[i])
-			free_exit(vals);
+		{
+			free(vals->map);
+			free_tex_image2("ERROR\nAllocation error!\n", vals, EXIT_FAILURE);
+		}
 	}
 }
 

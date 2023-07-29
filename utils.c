@@ -32,36 +32,25 @@ void	double_free(char **vals)
 	}
 }
 
-void	free_exit(t_cub3d *vals)
+int	closee(int keycode, t_cub3d *vals)
 {
-	/*if (vals->north.path)
-		free(vals->north.path);
-	if (vals->south.path)
-		free(vals->south.path);
-	if (vals->east.path)
-		free(vals->east.path);
-	if (vals->west.path)
-		free(vals->west.path);
-	while (*(vals->map))
-		free(*(vals->map)++);
-	free(vals->map);*/
-	msg_fail_exit("DATA BROKE\nERROR\n", vals);
-}
+	int	i;
+	int	j;
 
-int	closee(int keycode, t_cub3d *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->img.image);
-	mlx_destroy_window(vars->mlx, vars->img.win);
-	system("leaks cub3d");
+	i = -1;
+	while (++i < vals->map_height)
+		free(vals->map[i]);
+	if (vals->map)
+		free(vals->map);
+	free_tex_image2("Cub3d closed successfully!\n", vals, EXIT_SUCCESS);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
-void	msg_fail_exit(char *msg, t_cub3d *vals)
+void	msg_fail_exit(char *msg, t_cub3d *vals, int exit_status)
 {
 	mlx_destroy_window(vals->mlx, vals->img.win);
 	mlx_destroy_image(vals->mlx, vals->img.image);
 	printf("%s", msg);
-	system("leaks cub3d");
-	exit(EXIT_FAILURE);
+	exit(exit_status);
 }

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	free_tex_paths(char *msg, t_cub3d *vals)
+void	free_tex_paths(char *msg, t_cub3d *vals, int exit_status)
 {
 	if (vals->north.path)
 		free(vals->north.path);
@@ -22,7 +22,7 @@ void	free_tex_paths(char *msg, t_cub3d *vals)
 		free(vals->west.path);
 	if (vals->east.path)
 		free(vals->east.path);
-	msg_fail_exit(msg, vals);
+	msg_fail_exit(msg, vals, exit_status);
 }
 
 void	free_tex_image(char *msg, t_cub3d *vals)
@@ -36,5 +36,18 @@ void	free_tex_image(char *msg, t_cub3d *vals)
 		mlx_destroy_image(vals->mlx, vals->west.image);
 	if (vals->east.image)
 		mlx_destroy_image(vals->mlx, vals->east.image);
-	free_tex_paths(msg, vals);
+	free_tex_paths(msg, vals, EXIT_FAILURE);
+}
+
+void	free_tex_image2(char *msg, t_cub3d *vals, int exit_status)
+{
+	if (vals->north.image)
+		mlx_destroy_image(vals->mlx, vals->north.image);
+	if (vals->south.image)
+		mlx_destroy_image(vals->mlx, vals->south.image);
+	if (vals->west.image)
+		mlx_destroy_image(vals->mlx, vals->west.image);
+	if (vals->east.image)
+		mlx_destroy_image(vals->mlx, vals->east.image);
+	free_tex_paths(msg, vals, exit_status);
 }
