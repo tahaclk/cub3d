@@ -36,7 +36,9 @@ int	init_textures(t_cub3d *vals)
 	while (vals->c_map[i] && counter < 6)
 	{
 		if (ft_strlen(vals->c_map[i]) > 3)
+		{
 			counter += take_data(vals, i);
+		}
 		i++;
 	}
 	if (counter == 6 && vals->c_map[i])
@@ -61,7 +63,7 @@ void	init_img(t_cub3d *f)
 void	init_vals(t_cub3d *vals)
 {
 	vals->mlx = mlx_init();
-	vals->img.win = mlx_new_window(vals->mlx, WIDTH, HEIGHT, "Cub3d");
+	vals->img.win = mlx_new_window(vals->mlx, WIDTH, HEIGHT, "Cub3D");
 	init_img(vals);
 	vals->north.path = NULL;
 	vals->south.path = NULL;
@@ -96,5 +98,6 @@ void	init_map(t_cub3d *vals, char **av)
 	map_start_index = init_textures(vals);
 	open_tex_file(vals);
 	init_map_data(vals, &map_start_index);
+	check_split_map(vals, av);
 	map_char_to_int(vals);
 }

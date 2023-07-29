@@ -18,7 +18,7 @@ $(LFLAGS):
 	make -C ./libft
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(MFLAGS) $(LFLAGS) $(AFLAGS) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) $(MFLAGS) $(LFLAGS) $(AFLAGS) -framework OpenGL -framework AppKit -fsanitize=address -o $(NAME)
 
 fclean : clean
 	make fclean -C ./libft

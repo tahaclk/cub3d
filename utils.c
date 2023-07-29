@@ -52,7 +52,6 @@ int	closee(int keycode, t_cub3d *vals)
 int	red_x_close(int keycode, t_cub3d *vals)
 {
 	printf("Cub3d closed successfully!\n");
-	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 	return (0);
 }

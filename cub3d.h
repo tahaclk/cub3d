@@ -19,8 +19,8 @@
 # include "mlxlib/mlx.h"
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
-# define WIDTH 1200
-# define HEIGHT 900
+# define WIDTH 800
+# define HEIGHT 600
 # define TEX_W 64
 # define TEX_H 64
 # define PI 3.141592653589793
@@ -130,6 +130,7 @@ void			double_free(char **vals);
 char			**double_malloc(t_cub3d *vals, int line_count, int max_line_size);
 void			check_map(t_cub3d *vals, int map_start_idx, char **map);
 void			check_map_chars(t_cub3d *vals);
+void			check_split_map(t_cub3d *vals, char **av);
 int				is_user_zero(int c);
 int				is_user_char(int c);
 int				check_player(t_cub3d *vals, char **map, int i, int j);
@@ -155,4 +156,7 @@ void			free_tex_image(char *msg, t_cub3d *vals);
 void			free_tex_image2(char *msg, t_cub3d *vals, int exit_status);
 int				red_x_close(int keycode, t_cub3d *vals);
 void			draw_pause(t_cub3d *vals);
+void			check_6(t_cub3d *vals, char *str, int fd);
+void			check_6_after(t_cub3d *vals, char *str, int i, int fd);
+int				check_after_newl(t_cub3d *vals, char *str, int i, int fd);
 #endif

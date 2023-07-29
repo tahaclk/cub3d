@@ -49,7 +49,7 @@ void	check_map(t_cub3d *vals, int start_idx, char **map)
 				free_map(vals, map, "ERROR\nMap is not close with walls!\n");
 			else if (is_user_zero(vals->c_map[i][j]) && (ft_strlen(vals->c_map[i
 				- 1]) - 1 < j || ft_strlen(vals->c_map[i + 1]) - 1 < j))
-				free_map(vals, map, "ERROR\nMap is not close with CRASHS!\n");
+				free_map(vals, map, "ERROR\nMap is not close with walls!\n");
 			player_count = check_player(vals, map, i, j);
 		}
 	}
@@ -75,4 +75,97 @@ void	check_map_chars(t_cub3d *vals)
 			}
 		}
 	}
+}
+
+int	check_after_newl(t_cub3d *vals, char *str, int i, int fd)
+{
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			i++;
+		else
+		{
+			close(fd);
+			free_tex_image("ERROR\nMap is splited with new line!\n", vals);
+		}
+	}
+	return (i);
+}
+
+void	check_6_after(t_cub3d *vals, char *str, int i, int fd)
+{
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			i++;
+		else
+		{
+			while (str[i])
+			{
+				if (str[i] != '\n')
+					i++;
+				else
+				{
+					if (str[i + 1] == '\n')
+						i = check_after_newl(vals, str, i, fd);
+					else
+						i++;
+				}
+			}
+		}
+	}
+}
+
+void	check_6(t_cub3d *vals, char *str, int fd)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\n')
+			i++;
+		else if (str[i] != '\n')
+		{
+			count++;
+			while (str[i])
+			{
+				if (str[i] != '\n')
+					i++;
+				else
+					break;
+			}
+		}
+		if (count == 6)
+		{
+			check_6_after(vals, str, i, fd);
+			break;
+		}
+	}
+}
+
+void	check_split_map(t_cub3d *vals, char **av)
+{
+	char	*str;
+	char	*tmp;
+	int	fd;
+
+	fd = open_file(vals, av);
+	str = get_next_line(fd);
+	if (!str)
+	{
+		close(fd);
+		msg_fail_exit("File is empty or file cannot be opened\n", vals, EXIT_FAILURE);//*!!!!!!!!!!!!!!!!!!!
+	}
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (!tmp)
+			break ;
+		str = ft_strjoin2(str, tmp);
+		free(tmp);
+	}
+	check_6(vals, str, fd);
 }
