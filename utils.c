@@ -38,11 +38,21 @@ int	closee(int keycode, t_cub3d *vals)
 	int	j;
 
 	i = -1;
+
 	while (++i < vals->map_height)
-		free(vals->map[i]);
+		if (vals->map[i])
+			free(vals->map[i]);
 	if (vals->map)
 		free(vals->map);
 	free_tex_image2("Cub3d closed successfully!\n", vals, EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+int	red_x_close(int keycode, t_cub3d *vals)
+{
+	printf("Cub3d closed successfully!\n");
+	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 	return (0);
 }

@@ -126,6 +126,16 @@ int	key_press(int key_code, t_cub3d *vals)
 		vals->moves[5] = 1;
 	else if (key_code == 53)
 		closee(key_code, vals);
+	if (key_code == 35)
+	{
+		draw_pause(vals);
+		vals->lock = !vals->lock;
+	}
+	if (vals->lock == 0)
+	{
+		mlx_mouse_hide();
+		mlx_mouse_move(vals->img.win, WIDTH / 2, HEIGHT / 2);
+	}
 	return (0);
 }
 

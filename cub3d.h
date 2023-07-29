@@ -19,21 +19,11 @@
 # include "mlxlib/mlx.h"
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1200
+# define HEIGHT 900
 # define TEX_W 64
 # define TEX_H 64
 # define PI 3.141592653589793
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
 
 typedef struct s_image
 {
@@ -107,6 +97,7 @@ typedef struct s_cub3d
 	int			m_old_pos_y;
 	int			m_pos_x;
 	int			m_pos_y;
+	int			lock;
 	double		camera_x;
 	double		ray_dir_x;
 	double		ray_dir_y;
@@ -162,4 +153,6 @@ void			rotate_with_mouse(t_cub3d *vals);
 void			free_tex_paths(char *msg, t_cub3d *vals, int exit_status);
 void			free_tex_image(char *msg, t_cub3d *vals);
 void			free_tex_image2(char *msg, t_cub3d *vals, int exit_status);
+int				red_x_close(int keycode, t_cub3d *vals);
+void			draw_pause(t_cub3d *vals);
 #endif

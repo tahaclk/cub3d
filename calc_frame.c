@@ -12,6 +12,28 @@
 
 #include "cub3d.h"
 
+void	draw_pause(t_cub3d *vals)
+{
+	int	i;
+	int	j;
+
+	i = 3 * WIDTH / 8 - 1;
+	while (++i < (15 * WIDTH) / 32)
+	{
+		j = HEIGHT / 3 - 1;
+		while (++j < (2 * HEIGHT) / 3)
+			put_pixel_in_img(vals, i, j, create_trgb(50, 255,255,255));
+	}
+	i = (17 * WIDTH) / 32 - 1;
+	while (++i < (5 * WIDTH) / 8)
+	{
+		j = HEIGHT / 3 - 1;
+		while (++j < (2 * HEIGHT) / 3)
+			put_pixel_in_img(vals, i, j, create_trgb(50, 255,255,255));
+	}
+	mlx_put_image_to_window(vals->mlx, vals->img.win, vals->img.image, 0, 0);
+}
+
 void	print_mini_map(t_cub3d *vals)
 {
 	int	mini_map_x;

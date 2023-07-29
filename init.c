@@ -77,6 +77,7 @@ void	init_vals(t_cub3d *vals)
 	vals->moves[5] = 0;
 	vals->moves[6] = 0;
 	vals->moves[7] = 0;
+	vals->lock = 0;
 	vals->m_old_pos_x = WIDTH / 2;
 	vals->m_old_pos_y = HEIGHT / 2;
 	vals->m_pos_x = WIDTH / 2;

@@ -14,6 +14,11 @@
 
 int	ft_loop(t_cub3d *vals)
 {
+	if (vals->lock)
+	{
+		mlx_mouse_show();
+		return (0);
+	}
 	if ((vals->moves[0] || vals->moves[1]) && (vals->moves[2] || vals->moves[3]))
 		vals->player.move_speed = 0.06 / sqrt(2);
 	else
@@ -52,7 +57,7 @@ int	main(int ac, char **av)
 		init_map(&vals, av);
 		mlx_hook(vals.img.win, 2, 0, key_press, &vals);
 		mlx_hook(vals.img.win, 3, 0, key_release, &vals);
-		mlx_hook(vals.img.win, 17, 1L << 2, closee, &vals);
+		mlx_hook(vals.img.win, 17, 1L << 2, red_x_close, &vals);
 		mlx_loop_hook(vals.mlx, &ft_loop, &vals);
 		mlx_loop(vals.mlx);
 	}
