@@ -15,9 +15,9 @@
 int	ft_loop(t_cub3d *vals)
 {
 	if ((vals->moves[0] || vals->moves[1]) && (vals->moves[2] || vals->moves[3]))
-		vals->player.move_speed = 0.03 / sqrt(2);
+		vals->player.move_speed = 0.06 / sqrt(2);
 	else
-		vals->player.move_speed = 0.03;
+		vals->player.move_speed = 0.06;
 	if (vals->moves[0] == 1)
 		move_forward(vals);
 	else if (vals->moves[1] == 1)
@@ -30,6 +30,14 @@ int	ft_loop(t_cub3d *vals)
 		rotate_left(vals);
 	else if (vals->moves[5] == 1)
 		rotate_right(vals);
+	mlx_mouse_get_pos(vals->img.win, &(vals->m_pos_x), &(vals->m_pos_y));
+	if (vals->m_pos_x - vals->m_old_pos_x != 0)
+		rotate_with_mouse(vals);
+	mlx_mouse_move(vals->img.win, WIDTH / 2, HEIGHT / 2);
+	vals->m_old_pos_x = WIDTH / 2;
+	vals->m_old_pos_y = HEIGHT / 2;
+	vals->m_pos_x = WIDTH / 2;
+	vals->m_pos_y = HEIGHT / 2;
 	calc_frame(vals);
 	return (0);
 }
@@ -40,15 +48,18 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		init_map(&vals, av);
 		init_vals(&vals);
+		init_map(&vals, av);
 		mlx_hook(vals.img.win, 2, 0, key_press, &vals);
-		mlx_hook(vals.img.win, 3, 1, key_release, &vals);
+		mlx_hook(vals.img.win, 3, 0, key_release, &vals);
 		mlx_hook(vals.img.win, 17, 1L << 2, closee, &vals);
-		mlx_loop_hook(vals.img.mlx, &ft_loop, &vals);
-		mlx_loop(vals.img.mlx);
+		mlx_loop_hook(vals.mlx, &ft_loop, &vals);
+		mlx_loop(vals.mlx);
 	}
 	else
-		msg_fail_exit("Please write map name!!\n");
+	{
+		printf("ERROR\nPlease write map name!!\n");
+		return (1);
+	}
 	return (0);
 }

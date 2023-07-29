@@ -19,8 +19,10 @@
 # include "mlxlib/mlx.h"
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 800
+# define HEIGHT 600
+# define TEX_W 64
+# define TEX_H 64
 # define PI 3.141592653589793
 
 enum {
@@ -35,7 +37,6 @@ enum {
 
 typedef struct s_image
 {
-	void	*mlx;
 	void	*win;
 	int		*image;
 	char	*data;
@@ -66,6 +67,15 @@ typedef struct s_color
 typedef struct s_texture
 {
 	char	*path;
+	char	*data;
+	void	*mlx;
+	void	*win;
+	void	*image;
+	int		bpp;
+	int		sizeline;
+	int		endian;
+	int		w;
+	int		h;
 }	t_texture;
 
 typedef struct s_cub3d
@@ -78,9 +88,10 @@ typedef struct s_cub3d
 	t_texture	east;
 	t_color		sky;
 	t_color		floor;
+	void		*mlx;
 	char		**c_map;
 	int			**map;
-	int			moves[6];
+	int			moves[8];
 	int			map_width;
 	int			map_height;
 	int			map_x;
@@ -92,6 +103,10 @@ typedef struct s_cub3d
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
+	int			m_old_pos_x;
+	int			m_old_pos_y;
+	int			m_pos_x;
+	int			m_pos_y;
 	double		camera_x;
 	double		ray_dir_x;
 	double		ray_dir_y;
@@ -99,47 +114,52 @@ typedef struct s_cub3d
 	double		side_dist_y;
 	double		delta_dist_x;
 	double		delta_dist_y;
-	double		perpWallDist;
+	double		perp_wall_dist;
 }	t_cub3d;
 
-void	init_vals(t_cub3d *vals);
-void	init_img(t_cub3d *f);
-void	init_map(t_cub3d *vals, char **av);
-void	init_map_data(t_cub3d *vals, int *idx);
-int		init_textures(t_cub3d *vals);
-int		key(int keycode, t_cub3d *vals);
-int		closee(int keycode, t_cub3d *vars);
-void	free_exit(t_cub3d *vals);
-int		open_file(t_cub3d *vals, char **av);
-char	**read_file(t_cub3d *vals, int fd);
-int		take_data(t_cub3d *vals, int i);
-int		take_tx_path(t_cub3d *vals, int i, char *key, char **path);
-int		take_color(t_cub3d *vals, int i, char *key, t_color *color);
-void	msg_fail_exit(char *msg);
-void	check_color_depth(t_cub3d *vals, t_color *color);
-int		fill_color(t_cub3d *vals, t_color *color, char *str);
-int		find_longest_line(t_cub3d *vals, int i);
-int		is_map_char(int c);
-void	double_free(char **vals);
-char	**double_malloc(t_cub3d *vals, int line_count, int max_line_size);
-void	check_map(t_cub3d *vals, int map_start_idx, char **map);
-void	check_map_chars(t_cub3d *vals);
-int		is_user_zero(int c);
-int		is_user_char(int c);
-int		check_player(t_cub3d *vals, char **map, int i, int j);
-void	map_char_to_int(t_cub3d *vals);
-void	fill_player_dir(t_cub3d *vals, double x, double y);
-void	fill_int_val(t_cub3d *vals, int i, int j);
-void	fill_int_map(t_cub3d *vals);
-void	calc_frame(t_cub3d *vals);
-void	put_pixel_in_img(t_cub3d *f, int x, int y, int color);
-int		create_trgb(int t, int r, int g, int b);
-int		key_press(int key_code, t_cub3d *vals);
-int		key_release(int key_code, t_cub3d *vals);
-void	move_forward(t_cub3d *vals);
-void	move_back(t_cub3d *vals);
-void	move_left(t_cub3d *vals);
-void	move_right(t_cub3d *vals);
-void	rotate_left(t_cub3d *vals);
-void	rotate_right(t_cub3d *vals);
+void			init_vals(t_cub3d *vals);
+void			init_img(t_cub3d *f);
+void			init_map(t_cub3d *vals, char **av);
+void			init_map_data(t_cub3d *vals, int *idx);
+int				init_textures(t_cub3d *vals);
+int				key(int keycode, t_cub3d *vals);
+int				closee(int keycode, t_cub3d *vars);
+void			free_exit(t_cub3d *vals);
+int				open_file(t_cub3d *vals, char **av);
+char			**read_file(t_cub3d *vals, int fd);
+int				take_data(t_cub3d *vals, int i);
+int				take_tx_path(t_cub3d *vals, int i, char *key, char **path);
+int				take_color(t_cub3d *vals, int i, char *key, t_color *color);
+void			msg_fail_exit(char *msg, t_cub3d *vals);
+void			check_color_depth(t_cub3d *vals, t_color *color);
+int				fill_color(t_cub3d *vals, t_color *color, char *str);
+int				find_longest_line(t_cub3d *vals, int i);
+int				is_map_char(int c);
+int				is_all_digit(char **clr);
+void			double_free(char **vals);
+char			**double_malloc(t_cub3d *vals, int line_count, int max_line_size);
+void			check_map(t_cub3d *vals, int map_start_idx, char **map);
+void			check_map_chars(t_cub3d *vals);
+int				is_user_zero(int c);
+int				is_user_char(int c);
+int				check_player(t_cub3d *vals, char **map, int i, int j);
+void			map_char_to_int(t_cub3d *vals);
+void			fill_player_dir(t_cub3d *vals, double x, double y);
+void			fill_int_val(t_cub3d *vals, int i, int j);
+void			fill_int_map(t_cub3d *vals);
+void			calc_frame(t_cub3d *vals);
+void			put_pixel_in_img(t_cub3d *f, int x, int y, int color);
+int				create_trgb(int t, int r, int g, int b);
+int				key_press(int key_code, t_cub3d *vals);
+int				key_release(int key_code, t_cub3d *vals);
+void			move_forward(t_cub3d *vals);
+void			move_back(t_cub3d *vals);
+void			move_left(t_cub3d *vals);
+void			move_right(t_cub3d *vals);
+void			rotate_left(t_cub3d *vals);
+void			rotate_right(t_cub3d *vals);
+unsigned int	get_pixel_in_tex(t_texture tex, int x, int y);
+void			rotate_with_mouse(t_cub3d *vals);
+void			free_tex_paths(char *msg, t_cub3d *vals);
+void			free_tex_image(char *msg, t_cub3d *vals);
 #endif

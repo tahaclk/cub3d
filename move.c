@@ -14,54 +14,100 @@
 
 void	move_forward(t_cub3d *vals)
 {
-	if(vals->map[(int)vals->player.y][(int) (vals->player.x + vals->player.dir_x * vals->player.move_speed)] == 0)
+	if (vals->map[(int)vals->player.y][(int)(vals->player.x
+		+ vals->player.dir_x * vals->player.move_speed)] == 0)
 		vals->player.x += vals->player.dir_x * vals->player.move_speed;
-	if(vals->map[(int) (vals->player.y + vals->player.dir_y * vals->player.move_speed)][(int) (vals->player.x)] == 0)
+	if (vals->map[(int)(vals->player.y + vals->player.dir_y
+			* vals->player.move_speed)][(int)(vals->player.x)] == 0)
 		vals->player.y += vals->player.dir_y * vals->player.move_speed;
 }
 
 void	move_back(t_cub3d *vals)
 {
-	if(vals->map[(int)vals->player.y][(int) (vals->player.x - vals->player.dir_x * vals->player.move_speed)] == 0)
+	if (vals->map[(int)vals->player.y][(int)(vals->player.x
+		- vals->player.dir_x * vals->player.move_speed)] == 0)
 		vals->player.x -= vals->player.dir_x * vals->player.move_speed;
-	if(vals->map[(int) (vals->player.y - vals->player.dir_y * vals->player.move_speed)][(int) (vals->player.x)] == 0)
+	if (vals->map[(int)(vals->player.y - vals->player.dir_y
+			* vals->player.move_speed)][(int)(vals->player.x)] == 0)
 		vals->player.y -= vals->player.dir_y * vals->player.move_speed;
 }
 
 void	move_left(t_cub3d *vals)
 {
-	if(vals->map[(int)vals->player.y][(int) (vals->player.x + vals->player.dir_y * vals->player.move_speed)] == 0)
+	if (vals->map[(int)vals->player.y][(int)(vals->player.x + vals->player.dir_y
+		* vals->player.move_speed)] == 0)
 		vals->player.x += vals->player.dir_y * vals->player.move_speed;
-	if(vals->map[(int) (vals->player.y - vals->player.dir_x * vals->player.move_speed)][(int) (vals->player.x)] == 0)
+	if (vals->map[(int)(vals->player.y - vals->player.dir_x
+			* vals->player.move_speed)][(int)(vals->player.x)] == 0)
 		vals->player.y += -vals->player.dir_x * vals->player.move_speed;
 }
 
 void	move_right(t_cub3d *vals)
 {
-	if(vals->map[(int)vals->player.y][(int) (vals->player.x - vals->player.dir_y * vals->player.move_speed)] == 0)
+	if (vals->map[(int)vals->player.y][(int)(vals->player.x - vals->player.dir_y
+		* vals->player.move_speed)] == 0)
 		vals->player.x -= vals->player.dir_y * vals->player.move_speed;
-	if(vals->map[(int) (vals->player.y + vals->player.dir_x * vals->player.move_speed)][(int) (vals->player.x)] == 0)
+	if (vals->map[(int)(vals->player.y + vals->player.dir_x
+			* vals->player.move_speed)][(int)(vals->player.x)] == 0)
 		vals->player.y -= -vals->player.dir_x * vals->player.move_speed;
+}
+
+void	rotate_with_mouse(t_cub3d *vals)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+	double	rot_x;
+
+	if (vals->m_pos_x - vals->m_old_pos_x > 0)
+		rot_x = vals->player.rot_speed * ((vals->m_pos_x
+					- vals->m_old_pos_x) / 10);
+	else
+		rot_x = vals->player.rot_speed * ((vals->m_pos_x
+					- vals->m_old_pos_x) / 10);
+	old_dir_x = vals->player.dir_x;
+	old_plane_x = vals->player.plane_x;
+	vals->player.dir_x = vals->player.dir_x * cos(rot_x) - vals->player.dir_y
+		* sin(rot_x);
+	vals->player.dir_y = old_dir_x * sin(rot_x) + vals->player.dir_y
+		* cos(rot_x);
+	vals->player.plane_x = vals->player.plane_x * cos(rot_x)
+		- vals->player.plane_y * sin(rot_x);
+	vals->player.plane_y = old_plane_x * sin(rot_x) + vals->player.plane_y
+		* cos(rot_x);
 }
 
 void	rotate_left(t_cub3d *vals)
 {
-	double oldDirX = vals->player.dir_x;
-	vals->player.dir_x = vals->player.dir_x * cos(-vals->player.rot_speed) - vals->player.dir_y * sin(-vals->player.rot_speed);
-	vals->player.dir_y = oldDirX * sin(-vals->player.rot_speed) + vals->player.dir_y * cos(-vals->player.rot_speed);
-	double oldPlaneX = vals->player.plane_x;
-	vals->player.plane_x = vals->player.plane_x * cos(-vals->player.rot_speed) - vals->player.plane_y * sin(-vals->player.rot_speed);
-	vals->player.plane_y = oldPlaneX * sin(-vals->player.rot_speed) + vals->player.plane_y * cos(-vals->player.rot_speed);
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = vals->player.dir_x;
+	old_plane_x = vals->player.plane_x;
+	vals->player.dir_x = vals->player.dir_x * cos(-vals->player.rot_speed)
+		- vals->player.dir_y * sin(-vals->player.rot_speed);
+	vals->player.dir_y = old_dir_x * sin(-vals->player.rot_speed) +
+		vals->player.dir_y * cos(-vals->player.rot_speed);
+	vals->player.plane_x = vals->player.plane_x * cos(-vals->player.rot_speed)
+		- vals->player.plane_y * sin(-vals->player.rot_speed);
+	vals->player.plane_y = old_plane_x * sin(-vals->player.rot_speed) +
+		vals->player.plane_y * cos(-vals->player.rot_speed);
 }
 
 void	rotate_right(t_cub3d *vals)
 {
-	double oldDirX = vals->player.dir_x;
-	vals->player.dir_x = vals->player.dir_x * cos(vals->player.rot_speed) - vals->player.dir_y * sin(vals->player.rot_speed);
-	vals->player.dir_y = oldDirX * sin(vals->player.rot_speed) + vals->player.dir_y * cos(vals->player.rot_speed);
-	double oldPlaneX = vals->player.plane_x;
-	vals->player.plane_x = vals->player.plane_x * cos(vals->player.rot_speed) - vals->player.plane_y * sin(vals->player.rot_speed);
-	vals->player.plane_y = oldPlaneX * sin(vals->player.rot_speed) + vals->player.plane_y * cos(vals->player.rot_speed);
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = vals->player.dir_x;
+	old_plane_x = vals->player.plane_x;
+	vals->player.dir_x = vals->player.dir_x * cos(vals->player.rot_speed) -
+		vals->player.dir_y * sin(vals->player.rot_speed);
+	vals->player.dir_y = old_dir_x * sin(vals->player.rot_speed) +
+		vals->player.dir_y * cos(vals->player.rot_speed);
+	vals->player.plane_x = vals->player.plane_x * cos(vals->player.rot_speed) -
+		vals->player.plane_y * sin(vals->player.rot_speed);
+	vals->player.plane_y = old_plane_x * sin(vals->player.rot_speed) +
+		vals->player.plane_y * cos(vals->player.rot_speed);
 }
 
 int	key_press(int key_code, t_cub3d *vals)

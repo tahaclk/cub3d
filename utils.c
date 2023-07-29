@@ -45,18 +45,22 @@ void	free_exit(t_cub3d *vals)
 	while (*(vals->map))
 		free(*(vals->map)++);
 	free(vals->map);*/
-	msg_fail_exit("DATA BROKE\nERROR\n");
+	msg_fail_exit("DATA BROKE\nERROR\n", vals);
 }
 
 int	closee(int keycode, t_cub3d *vars)
 {
+	mlx_destroy_image(vars->mlx, vars->img.image);
+	mlx_destroy_window(vars->mlx, vars->img.win);
 	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
-void	msg_fail_exit(char *msg)
+void	msg_fail_exit(char *msg, t_cub3d *vals)
 {
+	mlx_destroy_window(vals->mlx, vals->img.win);
+	mlx_destroy_image(vals->mlx, vals->img.image);
 	printf("%s", msg);
 	system("leaks cub3d");
 	exit(EXIT_FAILURE);

@@ -75,7 +75,7 @@ char	**double_malloc(t_cub3d *vals, int line_count, int max_line_size)
 	j = -1;
 	map = (char **) malloc(sizeof(char *) * (line_count + 1));
 	if (!map)
-		free_exit(vals);
+		free_tex_image("ERROR\nMemory allocation error!\n", vals);
 	while (++j < line_count)
 	{
 		map[j] = (char *) malloc(sizeof(char) * (max_line_size + 1));
@@ -99,7 +99,7 @@ void	init_map_data(t_cub3d *vals, int *map_start_index)
 
 	j = -1;
 	if (*map_start_index == -1)
-		msg_fail_exit("Map not found pls check map!\nERROR\n");
+		free_tex_image("ERROR\nMap not found pls check map!\n", vals);
 	else
 	{
 		line_count = find_line_count(vals, *map_start_index);
@@ -107,10 +107,10 @@ void	init_map_data(t_cub3d *vals, int *map_start_index)
 		{
 			max_line_size = find_longest_line(vals, *map_start_index);
 			if (max_line_size == 0)
-				free_exit(vals);
+				free_tex_image("ERROR\nMap not found pls check map!\n", vals);
 		}
 		else
-			free_exit(vals);
+			free_tex_image("ERROR\nMap not found pls check map!\n", vals);
 		map = double_malloc(vals, line_count, max_line_size);
 		fill_map(vals, map, *map_start_index, max_line_size);
 	}

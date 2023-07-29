@@ -53,6 +53,7 @@ void	calc_frame(t_cub3d *vals)
 	int	x;
 
 	x = -1;
+	mlx_clear_window(vals->mlx, vals->img.win);
 	while (++x < WIDTH)
 	{
 		vals->camera_x = 2 * x / (double) WIDTH - 1;
@@ -102,11 +103,12 @@ void	calc_frame(t_cub3d *vals)
 				vals->hit = 1;
 		}
 		if(vals->side == 0)
-			vals->perpWallDist = (vals->side_dist_x - vals->delta_dist_x);
+			vals->perp_wall_dist = (vals->side_dist_x - vals->delta_dist_x);
 		else
-			vals->perpWallDist = (vals->side_dist_y - vals->delta_dist_y);
+			vals->perp_wall_dist = (vals->side_dist_y - vals->delta_dist_y);
 
-		vals->line_height = (int) (HEIGHT / vals->perpWallDist);
+		vals->line_height = (int) (HEIGHT / vals->perp_wall_dist);
+
 
 		vals->draw_start = -vals->line_height / 2 + HEIGHT / 2;
 		if (vals->draw_start < 0)
@@ -115,24 +117,49 @@ void	calc_frame(t_cub3d *vals)
 		if (vals->draw_end >= HEIGHT)
 			vals->draw_end = HEIGHT - 1;
 
-		int	color;
-		int	y;
+		int	texNum = vals->map[vals->map_y][vals->map_y] - 1;
 
-		y = -1;
-		if (vals->side == 1)
-			color = create_trgb(0, 20 / 2, 20 / 2, 160 / 2);
+		double	wall_x;
+
+		if (vals->side == 0)
+			wall_x = vals->player.y + vals->perp_wall_dist * vals->ray_dir_y;
 		else
-			color = create_trgb(0, 20, 20, 160);
+			wall_x = vals->player.x + vals->perp_wall_dist * vals->ray_dir_x;
+		wall_x -= floor(wall_x);
+
+		int	tex_x = (int) (wall_x * (double) TEX_W);
+		/* if (vals->side == 0 && vals->ray_dir_x > 0)
+			tex_x = TEX_W - tex_x - 1;
+		if (vals->side == 1 && vals->ray_dir_x < 0)
+			tex_x = TEX_W - tex_x - 1; */
+
+		double	step = 1.0 * TEX_H / vals->line_height;
+
+		double	tex_pos = (vals->draw_start - HEIGHT / 2 + vals->line_height / 2) * step;
+		int y = -1;
 		while (++y < HEIGHT)
 		{
 			if (y < vals->draw_start)
 				put_pixel_in_img(vals, x, y, create_trgb(0, vals->sky.r, vals->sky.g, vals->sky.b));
-			if (y >= vals->draw_start && y <= vals->draw_end)
+			else if (y >= vals->draw_start && y <= vals->draw_end)
+			{
+				int color;
+				int	tex_y = (int) tex_pos & (TEX_H - 1);
+				tex_pos += step;
+				if (vals->side == 0 && vals->ray_dir_x > 0)
+					color = get_pixel_in_tex(vals->north, tex_x, tex_y);
+				else if (vals->side == 0 && vals->ray_dir_x < 0)
+					color = get_pixel_in_tex(vals->south, tex_x, tex_y);
+				else if (vals->side == 1 && vals->ray_dir_y > 0)
+					color = get_pixel_in_tex(vals->west, tex_x, tex_y);
+				else if (vals->side == 1 && vals->ray_dir_y < 0)
+					color = get_pixel_in_tex(vals->east, tex_x, tex_y);
 				put_pixel_in_img(vals, x, y, color);
-			if (y > vals->draw_end)
+			}
+			else
 				put_pixel_in_img(vals, x, y, create_trgb(0, vals->floor.r, vals->floor.g, vals->floor.b));
 		}
 	}
 	print_mini_map(vals);
-	mlx_put_image_to_window(vals->img.mlx, vals->img.win, vals->img.image, 0, 0);
+	mlx_put_image_to_window(vals->mlx, vals->img.win, vals->img.image, 0, 0);
 }

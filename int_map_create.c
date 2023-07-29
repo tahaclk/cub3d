@@ -17,16 +17,16 @@ void	fill_player_dir(t_cub3d *vals, double x, double y)
 	vals->player.dir_x = x;
 	vals->player.dir_y = y;
 	if (x < 0.0)
-		vals->player.plane_y = 1;
+		vals->player.plane_y = -0.66;
 	else if (x > 0.0)
-		vals->player.plane_y = -1;
+		vals->player.plane_y = 0.66;
 	else
 		vals->player.plane_y = 0;
 
 	if (y < 0.0)
-		vals->player.plane_x = 1;
+		vals->player.plane_x = 0.66;
 	else if (y > 0.0)
-		vals->player.plane_x = -1;
+		vals->player.plane_x = -0.66;
 	else
 		vals->player.plane_x = 0;
 }
