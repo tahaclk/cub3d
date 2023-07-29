@@ -22,7 +22,6 @@ void	fill_player_dir(t_cub3d *vals, double x, double y)
 		vals->player.plane_y = 0.66;
 	else
 		vals->player.plane_y = 0;
-
 	if (y < 0.0)
 		vals->player.plane_x = 0.66;
 	else if (y > 0.0)
@@ -73,17 +72,17 @@ void	allocate_int_map(t_cub3d *vals)
 {
 	int	i;
 
-	vals->map_width = ft_strlen(vals->c_map[0]);
-	vals->map_height = 0;
-	while (vals->c_map[vals->map_height] != NULL)
-		vals->map_height++;
-	vals->map = (int **) malloc(sizeof(int *) * vals->map_height);
+	vals->map_wd = ft_strlen(vals->c_map[0]);
+	vals->map_he = 0;
+	while (vals->c_map[vals->map_he] != NULL)
+		vals->map_he++;
+	vals->map = (int **) malloc(sizeof(int *) * vals->map_he);
 	if (!vals->map)
 		free_tex_image2("ERROR\nAllocation error!\n", vals, EXIT_FAILURE);
 	i = -1;
-	while (++i < vals->map_height)
+	while (++i < vals->map_he)
 	{
-		vals->map[i] = (int *) malloc(sizeof(int) * vals->map_width);
+		vals->map[i] = (int *) malloc(sizeof(int) * vals->map_wd);
 		if (!vals->map[i])
 		{
 			free(vals->map);

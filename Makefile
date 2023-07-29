@@ -1,6 +1,6 @@
 SRCS = main.c init.c utils.c more_utils.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		file_control.c init_texture.c fill_map.c check_map.c int_map_create.c calc_frame.c \
-		move.c free.c
+		move.c free.c check_color.c do_move.c do_rotations.c check_map_more.c calc_frame_more.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc
 MFLAGS = ./mlxlib/libmlx.a

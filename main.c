@@ -19,22 +19,12 @@ int	ft_loop(t_cub3d *vals)
 		mlx_mouse_show();
 		return (0);
 	}
-	if ((vals->moves[0] || vals->moves[1]) && (vals->moves[2] || vals->moves[3]))
+	if ((vals->moves[0] || vals->moves[1])
+		&& (vals->moves[2] || vals->moves[3]))
 		vals->player.move_speed = 0.06 / sqrt(2);
 	else
 		vals->player.move_speed = 0.06;
-	if (vals->moves[0] == 1)
-		move_forward(vals);
-	else if (vals->moves[1] == 1)
-		move_back(vals);
-	if (vals->moves[2] == 1)
-		move_left(vals);
-	else if (vals->moves[3] == 1)
-		move_right(vals);
-	if (vals->moves[4] == 1)
-		rotate_left(vals);
-	else if (vals->moves[5] == 1)
-		rotate_right(vals);
+	move(vals);
 	mlx_mouse_get_pos(vals->img.win, &(vals->m_pos_x), &(vals->m_pos_y));
 	if (vals->m_pos_x - vals->m_old_pos_x != 0)
 		rotate_with_mouse(vals);
@@ -44,6 +34,9 @@ int	ft_loop(t_cub3d *vals)
 	vals->m_pos_x = WIDTH / 2;
 	vals->m_pos_y = HEIGHT / 2;
 	calc_frame(vals);
+	print_mini_map(vals);
+	print_player(vals, vals->x, vals->y, vals->scale);
+	mlx_put_image_to_window(vals->mlx, vals->img.win, vals->img.image, 0, 0);
 	return (0);
 }
 

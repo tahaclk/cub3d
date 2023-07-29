@@ -22,7 +22,8 @@ char	**read_file(t_cub3d *vals, int fd)
 	if (!str)
 	{
 		close(fd);
-		msg_fail_exit("File is empty or file cannot be opened\n", vals, EXIT_FAILURE);
+		msg_fail_exit("File is empty or file cannot be opened\n",
+			vals, EXIT_FAILURE);
 	}
 	while (1)
 	{

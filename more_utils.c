@@ -26,7 +26,7 @@ int	is_user_char(int c)
 	return (0);
 }
 
-void	put_pixel_in_img(t_cub3d *f, int x, int y, int color)
+void	put_px_img(t_cub3d *f, int x, int y, int color)
 {
 	char	*dst;
 
@@ -44,6 +44,5 @@ unsigned int	get_pixel_in_tex(t_texture tex, int x, int y)
 
 int	create_trgb(int t, int r, int g, int b)
 {
-	int x = 0x213;
 	return (t << 24 | r << 16 | g << 8 | b);
 }

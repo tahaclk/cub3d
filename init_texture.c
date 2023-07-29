@@ -12,38 +12,6 @@
 
 #include "cub3d.h"
 
-void	check_color_depth(t_cub3d *vals, t_color *color)
-{
-	if (color->r > 255 || color->r < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
-	if (color->g > 255 || color->g < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
-	if (color->b > 255 || color->b < 0)
-		free_tex_paths("ERROR\nColor value depth is wrong!\n", vals, EXIT_FAILURE);
-}
-
-int	is_all_digit(char **clr)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (clr[i])
-	{
-		j = 0;
-		while (clr[i][j])
-		{
-			if (ft_isdigit(clr[i][j]))
-				j++;
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
 int	fill_color(t_cub3d *vals, t_color *color, char *str)
 {
 	int		i;
@@ -124,15 +92,9 @@ int	take_data(t_cub3d *vals, int i)
 		if (vals->c_map[i][0] == '\n')
 			;
 		else
-		{
-			double_free(vals->c_map);
-			free_tex_paths("ERROR\nValues is broke!\n", vals, EXIT_FAILURE);
-		}
+			free_tex_paths_2("ERROR\nValues is broke!\n", vals, EXIT_FAILURE);
 	}
 	else
-	{
-		double_free(vals->c_map);
-		free_tex_paths("ERROR\nValues missing!\n", vals, EXIT_FAILURE);
-	}
+		free_tex_paths_2("ERROR\nValues missing!\n", vals, EXIT_FAILURE);
 	return (0);
 }

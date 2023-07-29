@@ -14,16 +14,25 @@
 
 void	open_tex_file(t_cub3d *vals)
 {
-	vals->north.image = mlx_xpm_file_to_image(vals->mlx, vals->north.path, &(vals->north.w), &(vals->north.h));
-	vals->south.image = mlx_xpm_file_to_image(vals->mlx, vals->south.path, &(vals->south.w), &(vals->south.h));
-	vals->west.image = mlx_xpm_file_to_image(vals->mlx, vals->west.path, &(vals->west.w), &(vals->west.h));
-	vals->east.image = mlx_xpm_file_to_image(vals->mlx, vals->east.path, &(vals->east.w), &(vals->east.h));
-	if (!vals->north.image || !vals->south.image || !vals->west.image || !vals->east.image)
+	vals->north.image = mlx_xpm_file_to_image(vals->mlx,
+			vals->north.path, &(vals->north.w), &(vals->north.h));
+	vals->south.image = mlx_xpm_file_to_image(vals->mlx,
+			vals->south.path, &(vals->south.w), &(vals->south.h));
+	vals->west.image = mlx_xpm_file_to_image(vals->mlx,
+			vals->west.path, &(vals->west.w), &(vals->west.h));
+	vals->east.image = mlx_xpm_file_to_image(vals->mlx,
+			vals->east.path, &(vals->east.w), &(vals->east.h));
+	if (!vals->north.image || !vals->south.image
+		|| !vals->west.image || !vals->east.image)
 		free_tex_image("ERROR\nTexture file name is wrong!\n", vals);
-	vals->north.data = mlx_get_data_addr(vals->north.image, &(vals->north.bpp), &(vals->north.sizeline), &(vals->north.endian));
-	vals->south.data = mlx_get_data_addr(vals->south.image, &(vals->south.bpp), &(vals->south.sizeline), &(vals->south.endian));
-	vals->west.data = mlx_get_data_addr(vals->west.image, &(vals->west.bpp), &(vals->west.sizeline), &(vals->west.endian));
-	vals->east.data = mlx_get_data_addr(vals->east.image, &(vals->east.bpp), &(vals->east.sizeline), &(vals->east.endian));
+	vals->north.data = mlx_get_data_addr(vals->north.image,
+			&(vals->north.bpp), &(vals->north.sizeline), &(vals->north.endian));
+	vals->south.data = mlx_get_data_addr(vals->south.image,
+			&(vals->south.bpp), &(vals->south.sizeline), &(vals->south.endian));
+	vals->west.data = mlx_get_data_addr(vals->west.image, &(vals->west.bpp),
+			&(vals->west.sizeline), &(vals->west.endian));
+	vals->east.data = mlx_get_data_addr(vals->east.image, &(vals->east.bpp),
+			&(vals->east.sizeline), &(vals->east.endian));
 }
 
 int	init_textures(t_cub3d *vals)

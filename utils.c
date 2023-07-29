@@ -38,8 +38,7 @@ int	closee(int keycode, t_cub3d *vals)
 	int	j;
 
 	i = -1;
-
-	while (++i < vals->map_height)
+	while (++i < vals->map_he)
 		if (vals->map[i])
 			free(vals->map[i]);
 	if (vals->map)
