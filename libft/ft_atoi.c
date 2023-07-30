@@ -39,13 +39,3 @@ int	ft_atoi(const char *str)
 	}
 	return ((int)num * neg);
 }
-/*
-#include <stdio.h>
-#include <stdlib.h>
-int main()
-{
-    char text[] = " 	\n\r\v\f\t         2147483648,232asd";
-    printf("orj:%d\n",atoi(text));
-    printf("rep:%d\n",ft_atoi(text));
-}
-*/

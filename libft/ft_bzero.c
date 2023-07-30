@@ -23,12 +23,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-/*
-#include<stdio.h>
-int main()
-{
-	char dizi[] = "tahaa test";
-	printf("%s\n",dizi);
-	ft_bzero(dizi,1);
-	printf("%c\n",dizi[1]);
-}*/

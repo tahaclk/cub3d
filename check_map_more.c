@@ -21,6 +21,7 @@ int	check_after_newl(t_cub3d *vals, char *str, int i, int fd)
 		else
 		{
 			close(fd);
+			free(str);
 			free_tex_image("ERROR\nMap is splited with new line!\n", vals);
 		}
 	}
@@ -101,4 +102,6 @@ void	check_split_map(t_cub3d *vals, char **av)
 		free(tmp);
 	}
 	check_6(vals, str, fd);
+	if (str)
+		free(str);
 }

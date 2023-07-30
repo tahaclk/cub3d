@@ -25,11 +25,3 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (str);
 }
-/*
-#include <stdio.h>
-int main()
-{
-    const char metin[] = "acdef\ndesadac";
-    printf("%s\n", strchr(metin,'\n'));
-}
-*/

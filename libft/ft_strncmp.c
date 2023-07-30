@@ -27,12 +27,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-/*
-#include<stdio.h>
-int main()
-{
-    const char s1[] = "tahasa,";
-    const char s2[] = "tahasaa";
-    printf("%d",ft_strncmp(s1,s2,10));
-}
-*/

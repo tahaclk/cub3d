@@ -30,11 +30,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-/*
-#include<stdio.h>
-int main()
-{
-	char src[50] = "http://www.tutorialspoint.com";
-	printf("%s",ft_memcpy(src,src+4,4));
-}
-*/

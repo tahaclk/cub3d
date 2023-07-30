@@ -32,9 +32,3 @@ void	ft_putnbr_fd(int n, int fd)
 			ft_putchar_fd('0' + n, fd);
 	}
 }
-/*
-int main()
-{
-	ft_putnbr_fd(2147483647, 3);
-}
-*/

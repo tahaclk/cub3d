@@ -28,18 +28,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (ft_strlen(src));
 }
-/*
-#include <stdio.h>
-int main(){
-	char d[] = "dayiasdfg";
-    char d1[] ="dayiasdfg";
-    
-    char f[] = "cayira";
-    char f1[] ="cayira";
-    
-    printf("\norj:\t\t%lu\n",strlcpy(d,f,3));
-    printf("rep:\t\t%lu\n",ft_strlcpy(d1,f1,3));
-	printf("\ndegisken:\t%s\ndegisken:\t%s\n\n",d,f);
-    printf("\ndegisken1:\t%s\ndegisken1:\t%s\n\n",d,f);
-}
-*/

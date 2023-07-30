@@ -31,16 +31,3 @@ char	*ft_strdup(const char *s1)
 	ptr[i] = '\0';
 	return (ptr);
 }
-/*
-#include <stdio.h>
-int main( void )
-{
-    const char *cp1 = "Bilgisayar adsfknsdf";
-    char *cp2 = strdup(cp1);
-
-    printf("İlk karakter dizisi: %s\n", cp1);
-    printf("Benzer olarak oluşturulan karakter dizisi: %s\n", cp2);
-
-    return 0;
-}
-*/

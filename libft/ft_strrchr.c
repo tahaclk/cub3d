@@ -31,14 +31,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int main()
-{
-    char test = 'a';
-    const char metin[] = "sadflkjsflhjbsdajln";
-    printf("orj:%s\n", strrchr(metin,(int)test));
-    printf("rep:%s\n", ft_strrchr(metin,(int)test));
-}
-*/

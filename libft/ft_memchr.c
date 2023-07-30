@@ -26,14 +26,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int main()
-{
-    const char s1[] = "test kontrol ads";
-    printf("%s",ft_memchr(s1,'s',10));
-    return 0;
-}
-*/

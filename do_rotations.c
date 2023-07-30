@@ -20,10 +20,10 @@ void	rotate_with_mouse(t_cub3d *vals)
 
 	if (vals->m_pos_x - vals->m_old_pos_x > 0)
 		rot_x = vals->player.rot_speed * ((vals->m_pos_x
-					- vals->m_old_pos_x) / 10);
+					- vals->m_old_pos_x) / 10.0);
 	else
 		rot_x = vals->player.rot_speed * ((vals->m_pos_x
-					- vals->m_old_pos_x) / 10);
+					- vals->m_old_pos_x) / 10.0);
 	old_dir_x = vals->player.dir_x;
 	old_plane_x = vals->player.plane_x;
 	vals->player.dir_x = vals->player.dir_x * cos(rot_x) - vals->player.dir_y

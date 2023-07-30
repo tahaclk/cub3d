@@ -31,16 +31,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	str[i] = '\0';
 	return (str);
 }
-/*
-char	ascii_up(unsigned int a, char b)
-{
-	return (b + 1);
-}
-
-#include<stdio.h>
-int main()
-{
-	const char *taha = "abcdefg";
-	printf("%s\n", ft_strmapi(taha,*ascii_up));
-}
-*/

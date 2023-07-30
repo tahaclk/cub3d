@@ -25,10 +25,3 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-/*
-int	main()
-{
-	char text[] = "test metni";
-	ft_putstr_fd(text, 3);
-}
-*/

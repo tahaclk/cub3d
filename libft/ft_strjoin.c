@@ -37,10 +37,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[i] = '\0';
 	return (str);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	printf("%s\n", ft_strjoin("test metni", " falan filen dersin"));
-}
-*/

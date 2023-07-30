@@ -29,12 +29,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-int main()
-{
-    char taha[] = "dana";
-    char taha2[] = "dana";
-    printf("%d", ft_memcmp(taha,taha2,4));
-}
-*/

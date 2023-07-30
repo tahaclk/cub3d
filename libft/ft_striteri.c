@@ -25,17 +25,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 		i++;
 	}
 }
-/*
-void	ascii_up(unsigned int a, char *b)
-{
-	b[a] += 1;
-}
-
-#include<stdio.h>
-int main()
-{
-	char taha[] = "abcdefg";
-	ft_striteri(taha, *ascii_up);
-	printf("%s\n", taha);
-}
-*/

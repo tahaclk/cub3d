@@ -30,13 +30,3 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	else
 		return (ft_memcpy(dst, src, len));
 }
-/*
-#include<stdio.h>
-#include <string.h>
-int main()
-{
-	char dizi[] = "merhaba";
-	printf("orj:%s\n", memmove(dizi+2, dizi, 3));
-	printf("rep:%s\n", ft_memmove(dizi+2, dizi, 3));
-}
-*/
